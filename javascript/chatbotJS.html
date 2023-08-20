@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatBot</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+      body {
+        background: #ebf1f8;
+        text-align: center;
+        padding: 5rem;
+        font: bold;
+        font-size: x-large;
+        overflow: hidden;
+      }
+
+      #chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 60vh;
+        overflow-y: auto;
+        border: 3px solid rgb(136, 132, 132);
+        border-radius: 1rem;
+        padding: 10px;
+      }
+
+      .user-message {
+        background-color: lightblue;
+        border-radius: 10px;
+        padding: 5px;
+        margin-bottom: 5px;
+        align-self: flex-end;
+      }
+
+      .chatbot-message {
+        background-color: lightgray;
+        border-radius: 10px;
+        padding: 5px;
+        margin-bottom: 5px;
+        align-self: flex-start;
+      }
+
+      #user-input {
+        font-size: 16px;
+        padding: 8px;
+        border: 3px solid rgb(24, 146, 216);
+        border-radius: 4px;
+        margin-right: 10px;
+        flex-grow: 1;
+        outline: 0;
+      }
+
+      #submit-btn {
+        font-size: 1.3rem;
+        padding: 8px;
+        border: none;
+        margin: 1rem;
+        border-radius: 4px;
+        background-color: dodgerblue;
+        color: white;
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1 style="margin: auto; color: #1e76da;">AI ChatBot</h1>
+    <div id="chat-container"></div>
+    <input type="text" id="user-input" />
+    <button id="submit-btn">Send</button>
+    
+    <script>
+      const userInput = document.getElementById("user-input");
+      const submitBtn = document.getElementById("submit-btn");
+      const chatContainer = document.getElementById("chat-container");
+      let dateTime = new Date();
+      
+      const responses = {
+          "hello": "Hello!",
+          "hi": "Hello!",
+          "how are you": "I'm doing well, What about you?",
+          "good": "Great!",
+          "fine": "Great!",
+          "bad": "I'm sorry to hear that.",
+          "bye": "Goodbye!",
+          "see you later": "See you soon!",
+          "have a nice day": "Thank you, you too!",
+          "what's your name?": "I am Jhon(AI Chat Bot)",
+          "who are you?": "I am Jhon(AI Chat Bot)",
+          "what's the time now?": `The time is ${dateTime.toLocaleTimeString('en-US')}.`,
+          "what's the date of today?": `The date of today: ${dateTime.toLocaleDateString()}.`,
+          "who made you?": "Human",
+          "what's your favorite color?": "I don't have a favorite color, as I am a chatbot.",
+          "what's your favorite food?": "I don't eat, as I am a chatbot.",
+          "what's your favorite movie?": "I don't watch movies, as I am a chatbot.",
+          "what do you do for fun?": "I enjoy chatting with people like you!",
+          "what's the meaning of life?": "That's a philosophical question that people have been asking for centuries. What do you think the meaning of life is?",
+          "tell me a joke": "Why did the tomato turn red? Because it saw the salad dressing!",
+          "what's your favorite book?": "I don't have a favorite book, as I am a chatbot.",
+          "what's your favorite song?": "I don't have a favorite song, as I am a chatbot.",
+          "what do you think of humans?": "I think humans are fascinating creatures with many strengths and weaknesses.",
+          "what's the weather like?": "I'm sorry, I don't have access to real-time weather information.",
+          "what's your favorite animal?": "I don't have a favorite animal, as I am a chatbot.",
+          "what's your favorite sport?": "I don't have a favorite sport, as I am a chatbot.",
+          "what's your favorite hobby?": "I don't have hobbies, as I am a chatbot.",
+          "what's the capital of France?": "The capital of France is Paris.",
+          "what's the highest mountain in the world?": "The highest mountain in the world is Mount Everest.",
+          "what's the largest country in the world?": "The largest country in the world by land area is Russia.",
+          "what's the smallest country in the world?": "The smallest country in the world by land area is Vatican City.",
+          "what's the longest river in the world?": "The longest river in the world is the Nile River in Africa.",
+          "what's the highest waterfall in the world?": "The highest waterfall in the world is Angel Falls in Venezuela.",
+          "what's the deepest ocean in the world?": "The deepest ocean in the world is the Pacific Ocean.",
+          "what's the largest ocean in the world?": "The largest ocean in the world is the Pacific Ocean.",
+          "what's the largest desert in the world?": "The largest desert in the world is the Sahara Desert in Africa.",
+          "what's the busiest airport in the world?": "The busiest airport in the world is Hartsfield–Jackson Atlanta International Airport in the United States.",
+          "what's the tallest building in the world?": "The tallest building in the world is the Burj Khalifa",
+          "default": "I'm sorry, I didn't understand that. Can you please rephrase?"
+      }
+
+      function getResponse(input) {
+        for (let key in responses) {
+          if ((input.toLowerCase().includes(key)) || (key.includes(input.toLowerCase()))) {
+            return responses[key];
+          }
+        }
+        // If no match was found, return the default response
+        return responses["default"];
+      }
+
+   
+      function Message(message,className,person) {
+        const messageElement = document.createElement("div");
+        messageElement.classList.add(className);
+        messageElement.innerText = `${person}: ${message}`;
+        chatContainer.appendChild(messageElement);
+      }
+
+      // Add an event listener to the submit button
+      submitBtn.addEventListener("click", () => {
+      //   sendMessage();
+      // });
+
+      // // Add an event listener to the user input field for the "Enter" key
+      // userInput.addEventListener("keyup", (event) => {
+      //   if (event.key === "Enter") {
+      //     sendMessage();
+      //   }
+      // });
+
+      // // Define a function to send the message
+      // function sendMessage() {
+        const userInputValue = userInput.value.trim();
+      //   if (userInputValue === "") {
+      //     return;
+      //   }
+
+        Message(userInputValue,"user-message","You");
+        const chatbotResponse = getResponse(userInputValue);
+        Message(chatbotResponse, "chatbot-message","Bot");
+        // userInput.value = "";
+      // }
+      });
+
+    </script>
+  </body>
+</html>
